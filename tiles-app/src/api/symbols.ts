@@ -7,7 +7,6 @@ export const symbols = [
   "GBP/YEN",
   "USD/GBP",
   "GBP/USD",
-  "USD/EUR",
   "CHZ/GBP",
   "CHZ/EUR",
 ];

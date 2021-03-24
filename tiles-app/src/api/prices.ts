@@ -9,7 +9,7 @@ export interface Price {
   side: "buy" | "sell";
 }
 
-const [, price$] = bind(
+const [, allPrices$] = bind(
   interval(1000).pipe(
     map(() => {
       const price: number = Math.round(Math.random() * 1000) / 1000;
@@ -25,9 +25,9 @@ const [, price$] = bind(
   )
 );
 
-export const [usePrice] = bind(
+export const [usePrice, price$] = bind(
   (side: Price["side"], symbol: string): Observable<number | "-"> =>
-    price$.pipe(
+    allPrices$.pipe(
       filter((beat: Price) => beat.side === side && beat.symbol === symbol),
       tap(console.log),
       map((beat: Price): number => beat.price)
