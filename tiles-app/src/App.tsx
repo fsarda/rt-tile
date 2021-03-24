@@ -1,11 +1,10 @@
 import React from 'react';
 import './App.css';
-import { Tile } from './Tile';
+import { Tile } from './app/Tile';
+import { symbols } from './api/symbols';
 
-function App() {
-  return (
-    <Tile/>
-  );
-}
-
-export default App;
+export const App = () => (
+  <div className="tile-container">
+    {symbols.map( symbol => <Tile symbol={symbol}/>)}
+  </div>
+);
