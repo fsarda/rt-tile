@@ -1,0 +1,28 @@
+div.midPrice {
+  color: white;
+  font-size: 10 px;
+}
+
+.midPrice span {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  margin-left: 20px;
+}
+
+.midPrice span.up {
+  width : 0;
+  height : 0;
+  border-left : 8px solid transparent;
+  border-right : 8px solid transparent;
+  border-bottom : 8px solid green;
+}
+
+.midPrice span.down {
+  width : 0;
+  height : 0;
+  border-left : 8px solid transparent;
+  border-right : 8px solid transparent;
+  border-top : 8px solid red;
+}
+

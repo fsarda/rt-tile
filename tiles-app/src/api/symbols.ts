@@ -1,4 +1,6 @@
-export const symbols = [
+export type ISymbol = string;
+
+export const symbols: Array<ISymbol> = [
   "USD/EUR",
   "EUR/CHZ",
   "USD/CHZ",

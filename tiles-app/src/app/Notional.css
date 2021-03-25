@@ -1,0 +1,17 @@
+.notional {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+  grid-gap: 10px;
+  color: white;
+}
+
+.notional input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+  color: white;
+  outline: none;
+  -moz-appearance: textfield;
+}
