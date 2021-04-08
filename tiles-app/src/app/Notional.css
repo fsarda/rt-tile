@@ -4,14 +4,14 @@
   align-items: center;
   margin: 20px auto;
   grid-gap: 10px;
-  color: white;
+  color: #ffffff7c;
 }
 
 .notional input {
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid white;
-  color: white;
+  border-bottom: 1px solid #ffffff7c;
+  color: #ffffff7c;
   outline: none;
   -moz-appearance: textfield;
 }

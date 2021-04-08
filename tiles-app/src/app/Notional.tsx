@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Notional.css';
 import { useDefaultNotional } from '../api/execution';
 
 export const Notional = ({symbol, className}: any) => {
   const defaultNotional = useDefaultNotional(symbol);
   const currency = symbol.split('/')[0];
-  const [text, setText] = useState<string | undefined>(defaultNotional.toString());
+  const [text, setText] = useState<string>(defaultNotional.toString());
   const [interacted, setInteracted] = useState(false);
+
+  useEffect( () =>{
+    setText(defaultNotional.toString());
+  }, [defaultNotional])
 
   const onNotionalChange = (e: any) => {
     setText(e.target.value);

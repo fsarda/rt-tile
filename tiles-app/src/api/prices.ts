@@ -1,4 +1,4 @@
-import { map, filter, tap, scan } from "rxjs/operators";
+import { map, filter, scan } from "rxjs/operators";
 import { interval, Observable, combineLatest } from "rxjs";
 import { bind, shareLatest } from "@react-rxjs/core";
 import { symbols } from "./symbols";
