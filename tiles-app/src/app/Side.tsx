@@ -1,11 +1,11 @@
 import { Price, price$, usePrice } from "../api/prices";
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { concat, timer, of } from 'rxjs';
 import { mapTo, switchMap } from 'rxjs/operators';
 import { bind } from '@react-rxjs/core';
 import { ISymbol } from "../api/symbols";
 import './Side.css';
-import { executionsSubject$, useExecutions, useNotional } from "../api/execution";
+import { executionsSubject$, useNotional } from "../api/execution";
 
 const [useIsActive] = bind((side: Price['side'], symbol: string) => 
     price$(side, symbol).pipe(
@@ -23,6 +23,7 @@ export const Side: FC<ISide> = ({symbol, side}) => {
   const notional = useNotional(symbol);
   const isActive = useIsActive(side, symbol);
   const isDisabled = !price || !notional;
+  
   const className = `price ${side} ${
     isActive ? 'active':''
   } ${
