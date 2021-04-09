@@ -1,0 +1,19 @@
+.side-button {
+  max-width: 120px;
+  align-self: center;
+  justify-self: center;
+  padding: 0.55rem 1.5rem 0.6rem;
+  border-radius: 3px;
+}
+
+.side-button.disabled,
+.side-button.disabled button {
+  cursor: not-allowed;
+  color: rgba(128, 128, 128, 0.452) !important;
+  background-color: transparent !important;
+}
+
+.side-button.disabled:hover button,
+.side-button.disabled:hover {
+  cursor: not-allowed;
+}

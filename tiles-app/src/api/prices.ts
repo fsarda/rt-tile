@@ -27,12 +27,12 @@ const allPrices$ = interval(1000).pipe(
 );
 
 export const [usePrice, price$] = bind(
-  (side: Price["side"], symbol: string): Observable<number | "-"> =>
+  (side: Price["side"], symbol: string): Observable<number | undefined> =>
     allPrices$.pipe(
       filter((beat: Price) => beat.side === side && beat.symbol === symbol),
       map((beat: Price): number => beat.price)
     ),
-  "-"
+  undefined
 );
 
 export const [useMidPrice, midPrice$] = bind(
@@ -43,7 +43,9 @@ export const [useMidPrice, midPrice$] = bind(
           ({
             side: "mid",
             price:
-              buy !== "-" && sell !== "-" ? formatPrice((buy + sell) / 2) : 0,
+              buy !== undefined && sell !== undefined
+                ? formatPrice((buy + sell) / 2)
+                : 0,
             symbol,
           } as Price)
       ),

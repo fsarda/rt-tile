@@ -1,25 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import './Notional.css';
-import { useDefaultNotional } from '../api/execution';
+import {
+  useNotional,
+  notionalSubject$,
+  INotional
+} from '../api/execution';
+
+const setNotional = (notional: INotional) => notionalSubject$.next(notional);
 
 export const Notional = ({symbol, className}: any) => {
-  const defaultNotional = useDefaultNotional(symbol);
+  const notional = useNotional(symbol);
   const currency = symbol.split('/')[0];
-  const [text, setText] = useState<string>(defaultNotional.toString());
   const [interacted, setInteracted] = useState(false);
 
-  useEffect( () =>{
-    setText(defaultNotional.toString());
-  }, [defaultNotional])
+  useEffect(() => {
+    setNotional({symbol, notional: undefined, interacted: false});
+  }, [symbol])
 
   const onNotionalChange = (e: any) => {
-    setText(e.target.value);
     setInteracted(true);
+    setNotional({symbol, notional: Number.parseFloat(e.target.value), interacted: true});
   };
   
   const onNotionalReset = () => {
-    setText(defaultNotional.toString())
     setInteracted(false);
+    setNotional({symbol, notional: undefined, interacted: false});
   }
 
   return (
@@ -27,10 +32,9 @@ export const Notional = ({symbol, className}: any) => {
       <span>{currency}</span>
       <input
         type="number"
-        value={text}
+        value={ notional }
         onChange={onNotionalChange} /> 
       {interacted && <button onClick={onNotionalReset}> Reset </button>}
     </div>
-  );
-      
+  );  
 } 

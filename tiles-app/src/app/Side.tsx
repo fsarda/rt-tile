@@ -1,13 +1,15 @@
 import { Price, price$, usePrice } from "../api/prices";
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { concat, timer, of } from 'rxjs';
 import { mapTo, switchMap } from 'rxjs/operators';
 import { bind } from '@react-rxjs/core';
 import { ISymbol } from "../api/symbols";
+import './Side.css';
+import { executionsSubject$, useExecutions, useNotional } from "../api/execution";
 
 const [useIsActive] = bind((side: Price['side'], symbol: string) => 
     price$(side, symbol).pipe(
-      switchMap( price => concat(of(price !== '-'), timer(500).pipe(mapTo(false)))
+      switchMap( price => concat(of(price !== undefined), timer(500).pipe(mapTo(false)))
     )
 ), false);
 
@@ -18,12 +20,22 @@ export interface ISide {
 
 export const Side: FC<ISide> = ({symbol, side}) => {
   const price = usePrice(side, symbol);
+  const notional = useNotional(symbol);
   const isActive = useIsActive(side, symbol);
-  const className = `price ${side} ${isActive ? 'active':''}`;
+  const isDisabled = !price || !notional;
+  const className = `price ${side} ${
+    isActive ? 'active':''
+  } ${
+    isDisabled ? 'disabled': ''
+  }`;
+
+  const onExecutionClick = () => {
+    executionsSubject$.next({symbol, side, price: price || 0, notional});
+  }
 
   return(
-    <div className={className}>
-      <button>{price}</button>
+    <div className={`side-button ${className}`}  onClick={onExecutionClick}>
+      <button disabled={isDisabled}>{price || "-"}</button>
       <span>{side}</span>
     </div>
   )
